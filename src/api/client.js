@@ -1,7 +1,10 @@
 ﻿import axios from "axios";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:5001";
+
 const client = axios.create({
-  baseURL: "/api",
+  baseURL: `${API_BASE_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -21,13 +24,11 @@ client.interceptors.response.use(
   }
 );
 
-
 // ============================================================
 // AUTH
 // ============================================================
 
 export const authApi = {
-
   login: (payload) =>
     client
       .post("/auth/login", payload)
@@ -49,26 +50,22 @@ export const authApi = {
       .then((response) => response.data),
 };
 
-
 // ============================================================
 // LOCATIONS
 // ============================================================
 
 export const locationsApi = {
-
   getAll: () =>
     client
       .get("/locations")
       .then((response) => response.data),
 };
 
-
 // ============================================================
 // PREDICTION
 // ============================================================
 
 export const predictionApi = {
-
   predict: (payload) =>
     client
       .post("/predict", payload)
@@ -85,13 +82,11 @@ export const predictionApi = {
       .then((response) => response.data),
 };
 
-
 // ============================================================
 // FAVORITES
 // ============================================================
 
 export const favoritesApi = {
-
   list: () =>
     client
       .get("/favorites")
@@ -108,26 +103,22 @@ export const favoritesApi = {
       .then((response) => response.data),
 };
 
-
 // ============================================================
 // DASHBOARD
 // ============================================================
 
 export const dashboardApi = {
-
   summary: () =>
     client
       .get("/dashboard")
       .then((response) => response.data),
 };
 
-
 // ============================================================
 // PROFILE
 // ============================================================
 
 export const profileApi = {
-
   get: () =>
     client
       .get("/profile")
@@ -138,6 +129,5 @@ export const profileApi = {
       .put("/profile", payload)
       .then((response) => response.data),
 };
-
 
 export default client;
