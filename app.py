@@ -1,10 +1,10 @@
-# import pandas as pd
+﻿# import pandas as pd
 # from flask import Flask, render_template, request
 # import pickle 
 
 # app = Flask(__name__)   # Use "app" consistently
 
-# data=pd.read_csv('Cleaned_data.csv')
+# data=pd.read_csv('cleaned_data.csv')
 
 # pipe=pickle.load(open("RidgeModel.pkl",'rb'))
 
@@ -40,7 +40,7 @@
 # app = Flask(__name__)
 
 # # Load dataset
-# data = pd.read_csv('Cleaned_data.csv')
+# data = pd.read_csv('cleaned_data.csv')
 
 # # Load trained model
 # pipe = pickle.load(open("RidgeModel.pkl", 'rb'))
@@ -85,7 +85,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load dataset
-data = pd.read_csv('Cleaned_data.csv')
+data = pd.read_csv('cleaned_data.csv')
 
 # Load trained model
 pipe = pickle.load(open("RidgeModel.pkl", 'rb'))
