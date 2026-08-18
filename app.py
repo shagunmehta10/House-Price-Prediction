@@ -29,6 +29,7 @@ CORS(
     origins=[
         "http://localhost:5173",
         "https://house-price-prediction-drab-x1.vercel.app",
+        "https://house-price-prediction-git-main-shaguns-projects-7b2beb68.vercel.app",
     ],
 )
 
@@ -634,3 +635,4 @@ if __name__ == "__main__":
         debug=True,
         port=5001,
     )
+
