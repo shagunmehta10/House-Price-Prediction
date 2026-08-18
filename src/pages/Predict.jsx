@@ -1,5 +1,5 @@
-﻿import { useEffect, useState } from "react";
-import { locationsApi } from "../api/client";
+import { useEffect, useState } from "react";
+import { locationsApi, predictionApi } from "../api/client";
 import { Alert, PageHeader, Spinner } from "../components/ui";
 
 const initialForm = {
@@ -36,8 +36,8 @@ export default function Predict() {
     const loadLocations = async () => {
       try {
         const data = await locationsApi.getAll();
-        const supported = Array.isArray(data.supported_locations)
-          ? data.supported_locations
+        const supported = Array.isArray(data.locations)
+          ? data.locations
           : [];
 
         setLocations(supported);
@@ -65,31 +65,22 @@ export default function Predict() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/predict", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          location: form.location,
-          total_sqft: Number(form.area),
-          bhk: Number(form.bedrooms),
-          bath: Number(form.bathrooms),
-        }),
+      const data = await predictionApi.predict({
+        location: form.location,
+        total_sqft: Number(form.area),
+        bhk: Number(form.bedrooms),
+        bath: Number(form.bathrooms),
       });
-
-      const data = await response.json();
 
       console.log("HOUSEAI PREDICTION RESPONSE:", data);
 
-      if (!response.ok || data.success === false) {
+      if (data.success === false) {
         throw new Error(
           data.message || data.error || "Prediction failed"
         );
       }
 
-      const predictedPrice = Number(data.price_inr);
+      const predictedPrice = Number(data.prediction);
 
       if (!Number.isFinite(predictedPrice)) {
         throw new Error("Backend returned an invalid prediction");
@@ -288,7 +279,7 @@ export default function Predict() {
                 <Spinner className="border-ink-950/30 border-t-ink-950" /> Predicting...
               </>
             ) : (
-              <>Predict Price →</>
+              <>Predict Price ?</>
             )}
           </button>
         </form>
@@ -341,6 +332,9 @@ export default function Predict() {
     </div>
   );
 }
+
+
+
 
 
 
