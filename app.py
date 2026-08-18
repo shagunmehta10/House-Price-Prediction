@@ -44,8 +44,6 @@
 
 # # Load trained model
 # pipe = pickle.load(open("RidgeModel.pkl", 'rb'))
-# with open("RidgeModel.pkl", "wb") as f:
-#     pickle.dump(pipe, f)
 
 # @app.route('/')
 # def index():
@@ -90,11 +88,6 @@ data = pd.read_csv('cleaned_data.csv')
 # Load trained model
 pipe = pickle.load(open("RidgeModel.pkl", 'rb'))
 
-import pickle
-# After fitting your model as 'pipe'
-with open("RidgeModel.pkl", "wb") as f:
-    pickle.dump(pipe, f)
-
 @app.route('/')
 def index():
     locations = sorted(data['location'].unique())
@@ -120,3 +113,6 @@ def predict():
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
+
+
+
